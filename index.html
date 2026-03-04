@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Bukber Keluarga & Sahabat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --emerald: #064e3b;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            background: #020617;
+            background-image: radial-gradient(circle at 50% 50%, #064e3b33 0%, #020617 100%);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+
+        /* DASHBOARD LIST */
+        .dashboard {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title h1 { 
+            font-size: 2.5rem; margin: 0; 
+            background: linear-gradient(to right, #d4af37, #f59e0b);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .p-list {
+            margin-top: 25px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .p-card {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            animation: slideIn 0.5s ease;
+        }
+
+        /* FORM RESERVASI */
+        .rsvp-form {
+            background: var(--emerald);
+            padding: 40px 30px;
+            border-radius: 30px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus { border-color: var(--gold); }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: black;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { transform: scale(1.02); background: #f59e0b; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 850px) {
+            .main-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="dashboard">
+            <div class="header-title">
+                <p style="color: var(--gold); font-weight: 600; margin-bottom: 5px;">Pendaftaran Dibuka</p>
+                <h1>Bukber Berkah 2026.</h1>
+                <p style="color: #94a3b8; font-size: 14px;">Rumah Makan Arapat | 27 Ramadhan 1447H</p>
+            </div>
+
+            <div class="p-list" id="pList">
+                <h4 style="font-size: 12px; color: var(--gold); margin-bottom: 15px; opacity: 0.7;">DAFTAR KEHADIRAN:</h4>
+                <div class="p-card">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: black; display: flex; align-items: center; justify-content: center; font-weight: 800;">A</div>
+                    <div>
+                        <p style="margin: 0; font-weight: 600;">Admin Bukber</p>
+                        <p style="margin: 0; font-size: 11px; color: #10b981;">Confirmed (Host)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rsvp-form">
+            <span style="font-size: 40px;">🌙</span>
+            <h2 style="margin: 15px 0 5px 0;">Reservasi</h2>
+            <p style="font-size: 13px; color: #a7f3d0; margin-bottom: 30px;">Mohon isi data dengan benar untuk pemesanan kursi.</p>
+            
+            <form action="https://script.google.com/macros/s/AKfycbzr99FXIF8vmZLE2neCsPUuVlC7EmVOymUhzVWI_PIDmjmY3punouAvo5Ys3pjHOl9t/exec" method="POST" target="hidden_iframe" onsubmit="updateDashboard()">
+                
+                <div style="text-align: left; margin-bottom: 5px;">
+                    <label style="font-size: 11px; color: var(--gold); margin-left: 5px;">NAMA LENGKAP</label>
+                    <input type="text" id="userName" name="pendaftar_nama" placeholder="Contoh: Ahmad Subarjo" required>
+                </div>
+
+                <div style="text-align: left; margin-bottom: 5px;">
+                    <label style="font-size: 11px; color: var(--gold); margin-left: 5px;">WHATSAPP / KONTAK</label>
+                    <input type="text" name="pendaftar_kontak" placeholder="0812xxxxxxx" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Daftar Bukber Sekarang</button>
+            </form>
+
+            <iframe name="hidden_iframe" style="display:none;"></iframe>
+        </div>
+    </div>
+        
+    <script>
+        function updateDashboard() {
+            const nameInput = document.getElementById('userName');
+            const name = nameInput.value;
+            const list = document.getElementById('pList');
+            
+            alert("Terima kasih! Sedang mengirim data...");
+
+            setTimeout(() => {
+                const newEntry = document.createElement('div');
+                newEntry.className = 'p-card';
+                newEntry.innerHTML = `
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: 800;">${name.charAt(0).toUpperCase()}</div>
+                    <div>
+                        <p style="margin: 0; font-weight: 600;">${name}</p>
+                        <p style="margin: 0; font-size: 11px; color: #10b981;">Baru saja bergabung</p>
+                    </div>
+                `;
+                list.prepend(newEntry);
+                nameInput.value = ""; // Bersihkan input setelah kirim
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
