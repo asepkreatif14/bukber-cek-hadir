@@ -156,29 +156,38 @@
             <iframe name="hidden_iframe" style="display:none;"></iframe>
         </div>
     </div>
-        
-    <script>
-        function updateDashboard() {
-            const nameInput = document.getElementById('userName');
-            const name = nameInput.value;
-            const list = document.getElementById('pList');
-            
-            alert("Terima kasih! Sedang mengirim data...");
 
-            setTimeout(() => {
-                const newEntry = document.createElement('div');
-                newEntry.className = 'p-card';
-                newEntry.innerHTML = `
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-weight: 800;">${name.charAt(0).toUpperCase()}</div>
-                    <div>
-                        <p style="margin: 0; font-weight: 600;">${name}</p>
-                        <p style="margin: 0; font-size: 11px; color: #10b981;">Baru saja bergabung</p>
-                    </div>
-                `;
-                list.prepend(newEntry);
-                nameInput.value = ""; // Bersihkan input setelah kirim
-            }, 1000);
-        }
-    </script>
+    // Fungsi untuk mengambil data dari Google Sheets saat web dibuka
+async function loadGuestList() {
+    const url = "https://script.google.com/macros/s/AKfycbzr99FXIF8vmZLE2neCsPUuVlC7EmVOymUhzVWI_PIDmjmY3punouAvo5Ys3pjHOl9t/exec"; // Ganti dengan URL Deployment kamu
+    const list = document.getElementById('pList');
+    
+    try {
+        const response = await fetch(url);
+        const names = await response.json();
+        
+        // Bersihkan list (kecuali admin)
+        list.innerHTML = '<h4 style="font-size: 11px; color: var(--gold); letter-spacing: 1px; margin-bottom: 20px;">GUEST LIST</h4>';
+        
+        names.reverse().forEach(name => {
+            const card = document.createElement('div');
+            card.className = 'p-card';
+            card.innerHTML = `
+                <div class="avatar">${name.charAt(0).toUpperCase()}</div>
+                <div>
+                    <p style="font-weight: 600; font-size: 15px;">${name}</p>
+                    <p style="font-size: 11px; color: #10b981;">• Confirmed</p>
+                </div>
+            `;
+            list.appendChild(card);
+        });
+    } catch (err) {
+        console.log("Gagal memuat daftar tamu");
+    }
+}
+
+// Jalankan fungsi saat halaman selesai dimuat
+window.onload = loadGuestList;
+
 </body>
 </html>
