@@ -3,191 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP Bukber Keluarga & Sahabat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Live RSVP - Bukber 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --emerald: #064e3b;
-            --gold: #d4af37;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
-        body {
-            margin: 0;
-            background: #020617;
-            background-image: radial-gradient(circle at 50% 50%, #064e3b33 0%, #020617 100%);
-            color: white;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 1000px;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
-        }
-
-        /* DASHBOARD LIST */
-        .dashboard {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .header-title h1 { 
-            font-size: 2.5rem; margin: 0; 
-            background: linear-gradient(to right, #d4af37, #f59e0b);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .p-list {
-            margin-top: 25px;
-            max-height: 350px;
-            overflow-y: auto;
-        }
-
-        .p-card {
-            background: rgba(255,255,255,0.03);
-            margin-bottom: 12px;
-            padding: 15px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            animation: slideIn 0.5s ease;
-        }
-
-        /* FORM RESERVASI */
-        .rsvp-form {
-            background: var(--emerald);
-            padding: 40px 30px;
-            border-radius: 30px;
-            border: 1px solid var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 12px;
-            color: white;
-            outline: none;
-            box-sizing: border-box;
-        }
-
+        :root { --gold: #eab308; --emerald: #064e3b; --dark: #020617; --glass: rgba(255, 255, 255, 0.03); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--dark); color: white; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden; }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #064e3b44 0%, #020617 100%); z-index: -1; }
+        .wrapper { width: 100%; max-width: 1000px; display: grid; grid-template-columns: 1fr 380px; gap: 30px; }
+        
+        /* Dashboard */
+        .dashboard { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 40px; padding: 40px; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; }
+        .header span { color: var(--gold); }
+        .p-list { margin-top: 20px; max-height: 400px; overflow-y: auto; padding-right: 10px; }
+        .p-card { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.5s ease both; }
+        .avatar { width: 45px; height: 45px; border-radius: 50%; background: var(--gold); color: black; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+        
+        /* Form */
+        .rsvp-form { background: linear-gradient(145deg, #064e3b, #022c22); padding: 45px 35px; border-radius: 40px; border: 1px solid rgba(234, 179, 8, 0.2); text-align: center; }
+        input { width: 100%; padding: 16px; margin: 10px 0 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; color: white; outline: none; }
         input:focus { border-color: var(--gold); }
+        .btn-glow { width: 100%; padding: 18px; background: var(--gold); color: black; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .btn-glow:hover { transform: translateY(-3px); background: white; }
 
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: var(--gold);
-            color: black;
-            border: none;
-            border-radius: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-submit:hover { transform: scale(1.02); background: #f59e0b; }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 850px) {
-            .main-container { grid-template-columns: 1fr; }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 900px) { .wrapper { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-
-    <div class="main-container">
+    <div class="stars"></div>
+    <div class="wrapper">
         <div class="dashboard">
-            <div class="header-title">
-                <p style="color: var(--gold); font-weight: 600; margin-bottom: 5px;">Pendaftaran Dibuka</p>
-                <h1>Bukber Berkah 2026.</h1>
-                <p style="color: #94a3b8; font-size: 14px;">Rumah Makan Arapat | 27 Ramadhan 1447H</p>
+            <div class="header">
+                <p style="color: var(--gold); font-weight: 600; letter-spacing: 2px; font-size: 11px;">LIVE GUEST LIST</p>
+                <h1>Ramadan <span>Bukber.</span></h1>
             </div>
-
-            <div class="p-list" id="pList">
-                <h4 style="font-size: 12px; color: var(--gold); margin-bottom: 15px; opacity: 0.7;">DAFTAR KEHADIRAN:</h4>
-                <div class="p-card">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: black; display: flex; align-items: center; justify-content: center; font-weight: 800;">A</div>
-                    <div>
-                        <p style="margin: 0; font-weight: 600;">Admin Bukber</p>
-                        <p style="margin: 0; font-size: 11px; color: #10b981;">Confirmed (Host)</p>
-                    </div>
-                </div>
+            <div id="pList" class="p-list">
+                <p style="opacity: 0.5;">Memuat daftar tamu...</p>
             </div>
         </div>
 
         <div class="rsvp-form">
-            <span style="font-size: 40px;">🌙</span>
-            <h2 style="margin: 15px 0 5px 0;">Reservasi</h2>
-            <p style="font-size: 13px; color: #a7f3d0; margin-bottom: 30px;">Mohon isi data dengan benar untuk pemesanan kursi.</p>
+            <h2>Reservasi Kursi</h2>
+            <p style="font-size: 13px; color: #a7f3d0; margin-bottom: 25px;">Data Anda akan langsung muncul di dashboard.</p>
             
-            <form action="https://script.google.com/macros/s/AKfycbzr99FXIF8vmZLE2neCsPUuVlC7EmVOymUhzVWI_PIDmjmY3punouAvo5Ys3pjHOl9t/exec" method="POST" target="hidden_iframe" onsubmit="updateDashboard()">
-                
-                <div style="text-align: left; margin-bottom: 5px;">
-                    <label style="font-size: 11px; color: var(--gold); margin-left: 5px;">NAMA LENGKAP</label>
-                    <input type="text" id="userName" name="pendaftar_nama" placeholder="Contoh: Ahmad Subarjo" required>
-                </div>
-
-                <div style="text-align: left; margin-bottom: 5px;">
-                    <label style="font-size: 11px; color: var(--gold); margin-left: 5px;">WHATSAPP / KONTAK</label>
-                    <input type="text" name="pendaftar_kontak" placeholder="0812xxxxxxx" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Daftar Bukber Sekarang</button>
+            <form id="rsvpForm">
+                <input type="text" id="userName" name="pendaftar_nama" placeholder="Nama Lengkap" required>
+                <input type="text" name="pendaftar_kontak" placeholder="WhatsApp / HP" required>
+                <button type="submit" class="btn-glow">KONFIRMASI SEKARANG</button>
             </form>
-
-            <iframe name="hidden_iframe" style="display:none;"></iframe>
         </div>
     </div>
 
-    // Fungsi untuk mengambil data dari Google Sheets saat web dibuka
-async function loadGuestList() {
-    const url = "https://script.google.com/macros/s/AKfycbzr99FXIF8vmZLE2neCsPUuVlC7EmVOymUhzVWI_PIDmjmY3punouAvo5Ys3pjHOl9t/exec"; // Ganti dengan URL Deployment kamu
-    const list = document.getElementById('pList');
-    
-    try {
-        const response = await fetch(url);
-        const names = await response.json();
-        
-        // Bersihkan list (kecuali admin)
-        list.innerHTML = '<h4 style="font-size: 11px; color: var(--gold); letter-spacing: 1px; margin-bottom: 20px;">GUEST LIST</h4>';
-        
-        names.reverse().forEach(name => {
-            const card = document.createElement('div');
-            card.className = 'p-card';
-            card.innerHTML = `
-                <div class="avatar">${name.charAt(0).toUpperCase()}</div>
-                <div>
-                    <p style="font-weight: 600; font-size: 15px;">${name}</p>
-                    <p style="font-size: 11px; color: #10b981;">• Confirmed</p>
-                </div>
-            `;
-            list.appendChild(card);
-        });
-    } catch (err) {
-        console.log("Gagal memuat daftar tamu");
-    }
-}
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzr99FXIF8vmZLE2neCsPUuVlC7EmVOymUhzVWI_PIDmjmY3punouAvo5Ys3pjHOl9t/exec"; // GANTI INI!
 
-// Jalankan fungsi saat halaman selesai dimuat
-window.onload = loadGuestList;
+        // 1. Fungsi ambil data dari Google Sheets
+        async function loadData() {
+            const list = document.getElementById('pList');
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const names = await response.json();
+                list.innerHTML = ""; // Bersihkan list
+                
+                names.reverse().forEach(name => {
+                    const card = document.createElement('div');
+                    card.className = 'p-card';
+                    card.innerHTML = `
+                        <div class="avatar">${name.charAt(0).toUpperCase()}</div>
+                        <div>
+                            <p style="font-weight: 600;">${name}</p>
+                            <p style="font-size: 11px; color: #10b981;">• Terkonfirmasi</p>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            } catch (e) {
+                list.innerHTML = "<p>Gagal memuat daftar.</p>";
+            }
+        }
 
+        // 2. Fungsi kirim data
+        document.getElementById('rsvpForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = "Mengirim...";
+            btn.disabled = true;
+
+            const formData = new FormData(e.target);
+            try {
+                await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+                alert("Sukses! Nama Anda sudah masuk daftar.");
+                e.target.reset();
+                loadData(); // Refresh list setelah isi
+            } catch (err) {
+                alert("Terjadi kesalahan.");
+            }
+            btn.innerHTML = "KONFIRMASI SEKARANG";
+            btn.disabled = false;
+        };
+
+        // Jalankan saat pertama buka
+        window.onload = loadData;
+    </script>
 </body>
 </html>
